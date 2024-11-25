@@ -42,7 +42,9 @@ export function LessonPage({ lessons, setLessons }) {
                 <br></br>
                 <br></br>
                 <div style={{position: 'absolute', bottom: '0px', width: '100%'}}>
-                  <p>Урок выполнен правильно на {lesson.mark}%</p>
+                <p>
+                  Статус выполнения: <b>{lesson.mark !== null ? lesson.mark : 'Не начато'}</b>
+                </p>
                 </div>
               </div>
               <div style={{ padding: '10px', marginBottom: '20px' }}>

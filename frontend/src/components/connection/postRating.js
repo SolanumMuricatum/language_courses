@@ -1,11 +1,12 @@
-export const postUserAnswer = async (userAnswer, task_id, user_id) => {
+export const postRating = async (courseId, rating, user_id) => {
+
   try {
-    const response = await fetch(`http://localhost:8080/answer/add/${task_id}/${user_id}`, {
+    const response = await fetch(`http://localhost:8080/rating/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userAnswer: userAnswer}),
+      body: JSON.stringify({courseId: courseId, user_id: user_id, rating: rating}),
     });
 
     // Получаем код ответа

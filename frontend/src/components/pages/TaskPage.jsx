@@ -6,6 +6,8 @@ import { postUserAnswer } from '../connection/postUserAnswer';
 export function TaskPage({ tasks, setTasks }) {
   const userId = JSON.parse(localStorage.getItem('user_id'));
 
+  //написать запросы для ответов и из них уже брать результаты
+
   const [answers, setAnswers] = useState({}); // Хранилище для ответов
   const [errors, setErrors] = useState({}); // Хранилище для ошибок
 

@@ -29,7 +29,7 @@ export function LoginPage({ changeRole }) {
         setError(''); // Очищаем сообщение об ошибке
         changeRole(data.role); // Изменяем роль
         console.log('User role:', data.role);
-        navigate('/'); // Переход на главную страницу
+        navigate('/courses'); // Переход на главную страницу
       }
     } catch (error) {
       console.error('Ошибка авторизации:', error);
