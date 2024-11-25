@@ -20,5 +20,6 @@ public class CourseDTO {
     private String image;
     private String teacher_name;
     private String teacher_surname;
+    private Double rating;
 
 }

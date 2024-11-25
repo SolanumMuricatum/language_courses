@@ -2,6 +2,7 @@ package com.courses.backend.service.user;
 
 import com.courses.backend.model.module.ModuleDTO;
 import com.courses.backend.model.user.User;
+import com.courses.backend.model.user.UserDTO;
 import com.courses.backend.repository.ModuleRepository;
 import com.courses.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,10 @@ public class UserServiceImpl implements UserService{
         } else {
             return Map.of("error", "Неверный логин или пароль");
         }
+    }
+
+    @Override
+    public List<UserDTO> getUserScore(){
+        return userRepository.getUserScore();
     }
 }

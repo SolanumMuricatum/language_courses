@@ -1,11 +1,15 @@
 package com.courses.backend.controller;
 
+import com.courses.backend.model.course.CourseDTO;
 import com.courses.backend.model.user.User;
+import com.courses.backend.model.user.UserDTO;
 import com.courses.backend.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -17,8 +21,14 @@ public class UserController {
     public UserController(UserService userService){
         this.userService = userService;
     }
+
     @PostMapping(value = "/login")
     public ResponseEntity<?> enterUser(@RequestBody User user){
         return new ResponseEntity<>(userService.getUserRole(user.getEmail(), user.getPassword()), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "getScore")
+    public ResponseEntity<List<UserDTO>> getUserScore(){
+        return new ResponseEntity<>(userService.getUserScore(), HttpStatus.OK);
     }
 }

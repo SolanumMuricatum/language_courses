@@ -28,8 +28,6 @@ public class Answer {
     private int id;
     @Column(name = "user_answer", columnDefinition = "VARCHAR(225)")
     private String userAnswer;
-    @Column(name = "right_answer", columnDefinition = "VARCHAR(225)")
-    private String rightAnswer;
 
     @ManyToOne // Связь "многие к одному"
     @JsonManagedReference

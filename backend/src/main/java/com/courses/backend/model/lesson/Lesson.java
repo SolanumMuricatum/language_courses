@@ -30,8 +30,8 @@ public class Lesson {
     @Column(name = "description", columnDefinition = "VARCHAR(225)")
     private String description;
 
-    @Column(name = "mark", columnDefinition = "DOUBLE PRECISION")
-    private Double mark;
+    @Column(name = "mark", columnDefinition = "VARCHAR(225)")
+    private String mark;
 
     @ManyToOne // Связь "многие к одному"
     @JsonManagedReference
@@ -42,7 +42,7 @@ public class Lesson {
     @JsonBackReference
     private Set<Task> task = new HashSet<>(); // Инициализация коллекции
 
-    public Lesson(String id, String name, String description, double mark, Module module) {
+    public Lesson(String id, String name, String description, String mark, Module module) {
         this.id = id;
         this.name = name;
         this.description = description;

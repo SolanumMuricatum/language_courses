@@ -22,7 +22,7 @@ public class AnswerController {
         this.answerService = answerService;
     }
 
-    @PutMapping(value = "add/{id}/{id2}")
+    @PostMapping(value = "add/{id}/{id2}")
     public ResponseEntity<?> addUserAnswer(@RequestBody Map<String, String> userAnswer, @PathVariable(value = "id") String taskId,
                                            @PathVariable(value = "id2") String userId){
         answerService.addUserAnswer(userAnswer.get("userAnswer"), taskId, userId);

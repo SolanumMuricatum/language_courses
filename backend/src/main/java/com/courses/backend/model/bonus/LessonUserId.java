@@ -1,4 +1,4 @@
-package com.courses.backend.model.subscription;
+package com.courses.backend.model.bonus;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,9 +12,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Embeddable
-public class CourseUserId implements Serializable {
+public class LessonUserId implements Serializable {
 
-    private String courseId;
+    private String lessonId;
     private String userId;
-
 }

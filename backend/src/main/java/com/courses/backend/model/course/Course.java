@@ -25,6 +25,8 @@ public class Course {
     private String name;
     @Column(name = "description", columnDefinition = "VARCHAR(50)")
     private String description;
+    @Column(name = "rating", columnDefinition = "DOUBLE")
+    private Double rating;
     /*@Column(name = "start_of_the_course", columnDefinition = "VARCHAR(10)")
     private String start_of_the_course;
     @Column(name = "end_of_the_course", columnDefinition = "VARCHAR(10)")

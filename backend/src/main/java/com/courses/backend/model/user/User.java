@@ -32,6 +32,7 @@ public class User {
     @Column(name = "role", columnDefinition = "VARCHAR(50)")
     private String role;
 
+
     /*@ManyToMany
     @JsonManagedReference
     @JoinTable(

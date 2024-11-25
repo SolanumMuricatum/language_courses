@@ -4,6 +4,7 @@ import com.courses.backend.model.answer.Answer;
 import com.courses.backend.model.result.Result;
 import com.courses.backend.model.task.Task;
 import com.courses.backend.model.task.TaskDTO;
+import com.courses.backend.model.user.User;
 import com.courses.backend.repository.AnswerRepository;
 import com.courses.backend.repository.ResultRepository;
 import com.courses.backend.repository.TaskRepository;
@@ -34,26 +35,43 @@ public class AnswerServiceImpl implements AnswerService{
     @Transactional
     @Override
     public void addUserAnswer(String userAnswer, String taskId, String userId) {
-        List<Answer> answers = answerRepository.findAll(); //написать метод для репозитория
         String rightAnswer = taskRepository.findRightAnswerById(taskId);
 
-        Answer answer = answers.stream()
-                .filter(answer1 -> answer1.getUser().getId().equals(userId))
-                .filter(answer1 -> answer1.getTask().getId().equals(taskId))
-                .findAny()
-                .orElse(null);
-        assert answer != null;
+        List<Answer> existingAnswers = answerRepository.findUserAnswer(userId, taskId);
+        Answer checkIfExistsAnswer = existingAnswers.isEmpty() ? null : existingAnswers.get(0);
+
+        Task task = new Task();
+        task.setId(taskId);
+
+        User user = new User();
+        user.setId(userId);
+
+        Answer answer = new Answer();
         answer.setUserAnswer(userAnswer);
-        answerRepository.save(answer); //сохранили ответ
+        answer.setTask(task);
+        answer.setUser(user);
 
-        //теперь сравниваем с правильным ответом и записываем результат
-        Result result = resultRepository.findResultsByAnswerId(answer.getId()).getFirst();
-
-        if(userAnswer.equals(rightAnswer)){
-            result.setResult(1.0);
+        if (checkIfExistsAnswer != null) {
+            answer.setId(checkIfExistsAnswer.getId());
+            System.out.println(checkIfExistsAnswer.getResult().getResult());
         }
-        else {
+
+        answerRepository.save(answer);
+
+        Result result = new Result();
+        result.setAnswer(answer);
+
+        if (userAnswer.equals(rightAnswer)) {
+            result.setResult(1.0);
+        } else {
             result.setResult(0.0);
+        }
+
+        List<Result> existingResults = resultRepository.findResultsByAnswerId(answer.getId());
+        Result checkIfExistsResult = existingResults.isEmpty() ? null : existingResults.get(0);
+
+        if (checkIfExistsResult != null) {
+            result.setId(checkIfExistsResult.getId());
         }
 
         resultRepository.save(result);

@@ -4,6 +4,7 @@ import com.courses.backend.model.course.Course;
 import com.courses.backend.model.course.CourseDTO;
 import com.courses.backend.model.lesson.Lesson;
 import com.courses.backend.repository.CoursesRepository;
+import com.courses.backend.repository.UserRepository;
 import com.courses.backend.service.course.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,12 @@ import java.util.stream.Collectors;
 public class CourseServiceImpl implements CourseService {
 
     private final CoursesRepository courseRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CourseServiceImpl (CoursesRepository courseRepository){
+    public CourseServiceImpl (CoursesRepository courseRepository, UserRepository userRepository){
         this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -30,8 +33,17 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<CourseDTO> getAllCourses(String id) {
-        List<CourseDTO> courses = courseRepository.findAllCoursesAdmin(); //!!!! разобраться какой метод когда вызывать
-
+        String role = userRepository.getUserRole(id);
+        List<CourseDTO> courses = null;
+        if(role.equals("teacher")){
+            courses = courseRepository.findAllCoursesTeacher(id);
+        } else if (role.equals("user")) {
+            courses = courseRepository.findAllCoursesUser(id);
+        }
+        else if (role.equals("admin")){
+            courses = courseRepository.findAllCoursesAdmin();
+        }
+        assert courses != null;
         return courses.stream()
                 .sorted(Comparator.comparing(CourseDTO::getId)) // Сортировка по courseId
                 .collect(Collectors.toList());
