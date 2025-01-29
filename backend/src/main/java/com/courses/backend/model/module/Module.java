@@ -18,7 +18,6 @@ import lombok.Setter;
 public class Module {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private String id;
     @Column(name = "name", columnDefinition = "VARCHAR(50)")

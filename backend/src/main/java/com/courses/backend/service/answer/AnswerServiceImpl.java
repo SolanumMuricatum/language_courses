@@ -32,7 +32,7 @@ public class AnswerServiceImpl implements AnswerService{
         this.taskRepository = taskRepository;
         this.resultRepository = resultRepository;
     }
-    @Transactional
+
     @Override
     public void addUserAnswer(String userAnswer, String taskId, String userId) {
         String rightAnswer = taskRepository.findRightAnswerById(taskId);

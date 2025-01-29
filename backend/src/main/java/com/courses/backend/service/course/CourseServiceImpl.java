@@ -3,11 +3,13 @@ package com.courses.backend.service.course;
 import com.courses.backend.model.course.Course;
 import com.courses.backend.model.course.CourseDTO;
 import com.courses.backend.model.lesson.Lesson;
+import com.courses.backend.model.module.ModuleDTO;
 import com.courses.backend.repository.CoursesRepository;
 import com.courses.backend.repository.UserRepository;
 import com.courses.backend.service.course.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
@@ -50,12 +52,22 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void deleteCourse(Integer id) {
-
+    public void deleteCourse(String id) {
+        courseRepository.delete(courseRepository.getReferenceById(id));
     }
 
     @Override
     public void updateCourse(Course course) {
 
+    }
+
+    @Override
+    public List<CourseDTO> findAllCoursesAdmin(){
+        return courseRepository.findAllCoursesAdmin();
+    }
+
+    @Override
+    public List<CourseDTO> findCourseForUpdate(String id){
+        return courseRepository.findCourseForUpdate(id);
     }
 }

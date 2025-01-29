@@ -1,5 +1,6 @@
 package com.courses.backend.service.module;
 
+import com.courses.backend.model.module.Module;
 import com.courses.backend.model.module.ModuleDTO;
 import com.courses.backend.repository.CoursesRepository;
 import com.courses.backend.repository.ModuleRepository;
@@ -22,7 +23,7 @@ public class ModuleServiceImpl implements ModuleService{
 
     @Override
     public void saveModule(Module module) {
-
+        moduleRepository.save(module);
     }
 
     @Override
@@ -35,8 +36,13 @@ public class ModuleServiceImpl implements ModuleService{
     }
 
     @Override
-    public void deleteModule(Integer id) {
+    public List<ModuleDTO> findModuleForUpdate(String id){
+        return moduleRepository.findModuleForUpdate(id);
+    }
 
+    @Override
+    public void deleteModule(String id) {
+        moduleRepository.delete(moduleRepository.getReferenceById(id));
     }
 
     @Override

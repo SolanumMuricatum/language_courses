@@ -77,7 +77,7 @@ export function LoginPage({ changeRole }) {
                 />
               </div>
               {error && <div style={{ color: 'red' }}>{error}</div>} {/* Выводим сообщение об ошибке */}
-              <div className="text"><a href="#">Забыли пароль?</a></div>
+              <div className="text"><a href="/help">Забыли пароль?</a></div>
               <div className="button input-box">
                 <input 
                   type="submit" 
@@ -85,7 +85,7 @@ export function LoginPage({ changeRole }) {
                 />
               </div>
               <div className="text sign-up-text">
-                Не зарегистрированы? <a href="#">Оставьте заявку на регистрацию</a>
+                Не зарегистрированы? <a href="help">Оставьте заявку на регистрацию</a>
               </div>
             </div>
           </form>

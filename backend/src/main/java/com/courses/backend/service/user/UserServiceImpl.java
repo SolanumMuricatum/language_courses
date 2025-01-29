@@ -1,9 +1,7 @@
 package com.courses.backend.service.user;
 
-import com.courses.backend.model.module.ModuleDTO;
 import com.courses.backend.model.user.User;
 import com.courses.backend.model.user.UserDTO;
-import com.courses.backend.repository.ModuleRepository;
 import com.courses.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +38,43 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<UserDTO> getUserScore(){
         return userRepository.getUserScore();
+    }
+
+    @Override
+    public List<User> getTeacher() {return userRepository.getTeacher();}
+
+    @Override
+    public List<User> getAllUsers(){
+        return userRepository.getAllUsers();
+    }
+
+    @Override
+    public void addUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(String id) {
+        userRepository.delete(userRepository.getReferenceById(id));
+    }
+
+    @Override
+    public List<User> findUserForUpdate(String id) {
+        return userRepository.findUserForUpdate(id);
+    }
+
+    @Override
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public List<User> getOnlyUsers(String courseId){
+        return userRepository.getOnlyUsers(courseId);
+    }
+
+    @Override
+    public List<User> getUsersWithoutSubscription(String courseId) {
+        return userRepository.getUsersWithoutSubscription(courseId);
     }
 }

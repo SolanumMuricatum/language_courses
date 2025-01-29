@@ -23,8 +23,13 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public List<TaskDTO> getAllTasks(String lessonId, String userId) {
-        List<TaskDTO> tasks = taskRepository.findAllTasks(lessonId, userId);
+    public List<TaskDTO> getAllTasks(String lessonId) {
+        return taskRepository.findAllTasks(lessonId);
+    }
+
+    @Override
+    public List<TaskDTO> getTasks(String lessonId, String userId) {
+        List<TaskDTO> tasks = taskRepository.findTasks(lessonId, userId);
         return tasks.stream()
                 .sorted(Comparator.comparing(TaskDTO::getId)) // Сортировка по courseId
                 .collect(Collectors.toList());
@@ -33,6 +38,21 @@ public class TaskServiceImpl implements TaskService{
     @Override
     public String findRightAnswerById(String taskId){
        return taskRepository.findRightAnswerById(taskId);
+    }
+
+    @Override
+    public void saveTask(Task task) {
+        taskRepository.save(task);
+    }
+
+    @Override
+    public void deleteTask(String id) {
+        taskRepository.delete(taskRepository.getReferenceById(id));
+    }
+
+    @Override
+    public List<Task> findTaskForUpdate(String id) {
+        return taskRepository.findTaskForUpdate(id);
     }
 
 }

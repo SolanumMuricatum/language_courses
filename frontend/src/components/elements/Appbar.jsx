@@ -70,19 +70,32 @@ export function AppBarComponent({role, changeRole}) {
             <Button sx={{ color: 'black', fontSize: 'inherit', fontFamily: 'Arial, sans-serif', textTransform: 'none'}}>Рейтинг</Button>
           </Link>
         </ListItem>
-          {userRole==='"user"'  ? ( // Проверяем, есть ли роль
+          {userRole==='"user"'  && ( // Проверяем, есть ли роль
             <ListItem onClick={toggleDrawer(false)}>
                 <Link to="/rating" style={{ textDecoration: 'none' }}>
                   <Button sx={{ color: 'black', fontSize: 'inherit', fontFamily: 'Arial, sans-serif', textTransform: 'none'}}>Оценить курс</Button>
                 </Link>
             </ListItem>
-              ) : (
-            <ListItem>
-                <Link>
-                  <Button sx={{ color: 'gray', fontSize: 'inherit', fontFamily: 'Arial, sans-serif', textTransform: 'none'}}>Оценить курс</Button>
+          )}
+          {userRole==='"admin"'  && ( // Проверяем, есть ли роль
+            <ListItem onClick={toggleDrawer(false)}>
+                <Link to="/backup" style={{ textDecoration: 'none' }}>
+                  <Button sx={{ color: 'black', fontSize: 'inherit', fontFamily: 'Arial, sans-serif', textTransform: 'none'}}>Бэкап</Button>
                 </Link>
             </ListItem>
-              )}
+          )}
+          {userRole==='"admin"'  && ( // Проверяем, есть ли роль
+            <ListItem onClick={toggleDrawer(false)}>
+                <Link to="/users" style={{ textDecoration: 'none' }}>
+                  <Button sx={{ color: 'black', fontSize: 'inherit', fontFamily: 'Arial, sans-serif', textTransform: 'none'}}>Пользователи</Button>
+                </Link>
+            </ListItem>
+          )}
+          <ListItem onClick={toggleDrawer(false)}>
+            <Link to="/help" style={{ textDecoration: 'none' }}>
+              <Button sx={{ color: 'black', fontSize: 'inherit', fontFamily: 'Arial, sans-serif', textTransform: 'none'}}>Помощь</Button>
+            </Link>
+          </ListItem>
         </List>
       </Drawer>
     </Box>

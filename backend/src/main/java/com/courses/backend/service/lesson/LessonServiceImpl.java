@@ -11,6 +11,7 @@ import com.courses.backend.model.task.TaskDTO;
 import com.courses.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
@@ -43,11 +44,22 @@ public class LessonServiceImpl implements LessonService{
     }
 
     @Override
+    public void saveLesson(Lesson lesson) {
+        lessonRepository.save(lesson);
+    }
+
+    @Override
+    public List<Lesson> getAllLessons(String moduleId){
+        return lessonRepository.findAllLessons(moduleId);
+    }
+
+
+    @Override
     public List<Lesson> getLessons(String moduleId, String userId) {
-        List<Lesson> lessons = lessonRepository.findAllLessons(moduleId, userId);
+        List<Lesson> lessons = lessonRepository.findLessons(moduleId, userId);
 
         for (Lesson lesson : lessons) {
-            List<TaskDTO> tasks = taskRepository.findAllTasks(lesson.getId(), userId);
+            List<TaskDTO> tasks = taskRepository.findTasks(lesson.getId(), userId);
 
             long countNonNullAnswers = tasks.stream()
                     .filter(taskDTO -> taskDTO.getUserAnswer() != null)
@@ -61,8 +73,7 @@ public class LessonServiceImpl implements LessonService{
 
                     lessonMarkRepository.save(new LessonMark(lessonUserId, "В процессе"));
                 }
-
-                else if (countNonNullAnswers == tasksSize) {
+                else if (countNonNullAnswers == tasksSize && countNonNullAnswers != 0) {
                     // Если все ответы есть
                     double mark = tasks.stream()
                             .mapToDouble(TaskDTO::getResult)
@@ -82,4 +93,15 @@ public class LessonServiceImpl implements LessonService{
                 .sorted(Comparator.comparing(Lesson::getId)) // Сортировка по lessonId
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteLesson(String id) {
+        lessonRepository.delete(lessonRepository.getReferenceById(id));
+    }
+
+    @Override
+    public List<Lesson> findLessonForUpdate(String id) {
+        return lessonRepository.findLessonForUpdate(id);
+    }
+
 }

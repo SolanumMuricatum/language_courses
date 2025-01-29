@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface TaskRepository extends JpaRepository<Task, Integer> {
+public interface TaskRepository extends JpaRepository<Task, String> {
 
     /*@Query("SELECT new com.courses.backend.model.task.TaskDTO" +
             "(t.id, t.name, t.description, t.right_answer, t.lesson.id) " +
@@ -27,7 +27,17 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
             "LEFT JOIN Result r ON a.id = r.answer.id " +
             "WHERE t.lesson.id = :lessonId " +
             "GROUP BY t.id, t.name, t.description, t.right_answer, t.lesson.id, a.userAnswer, r.result")
-    List<TaskDTO> findAllTasks(@Param("lessonId") String lessonId, @Param("userId") String userId);
+    List<TaskDTO> findTasks(@Param("lessonId") String lessonId, @Param("userId") String userId);
+
+    @Query("SELECT new com.courses.backend.model.task.TaskDTO" +
+            "(t.id, t.name, t.description, t.right_answer, t.lesson.id, " +
+            "COALESCE(a.userAnswer, null), COALESCE(CAST(r.result AS DOUBLE), null)) " +
+            "FROM Task t " +
+            "LEFT JOIN Answer a ON t.id = a.task.id " + // Переместили условие в JOIN
+            "LEFT JOIN Result r ON a.id = r.answer.id " +
+            "WHERE t.lesson.id = :lessonId " +
+            "GROUP BY t.id, t.name, t.description, t.right_answer, t.lesson.id, a.userAnswer, r.result")
+    List<TaskDTO> findAllTasks(@Param("lessonId") String lessonId);
 
     /*@Query("SELECT new com.courses.backend.model.task.Task" +
             "(t.id, t.name, t.description, t.right_answer, l, a) " +
@@ -41,4 +51,7 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     @Query("SELECT t.right_answer FROM Task t WHERE t.id = :taskId")
     String findRightAnswerById(@Param("taskId") String taskId);
+
+    @Query("SELECT t FROM Task t WHERE t.id = :taskId")
+    List<Task> findTaskForUpdate(@Param("taskId") String taskId);
 }

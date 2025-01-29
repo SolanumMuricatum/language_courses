@@ -23,7 +23,7 @@ public class Result {
     @Column(name = "result", columnDefinition = "DOUBLE PRECISION")
     private Double result;
 
-    @OneToOne // Связь "многие к одному"
+    @OneToOne // Связь "один к одному"
     @JsonManagedReference
     @JoinColumn(name = "answer_id") // Указывает на внешний ключ в таблице
     private Answer answer;

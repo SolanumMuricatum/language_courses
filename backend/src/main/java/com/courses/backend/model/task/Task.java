@@ -22,7 +22,6 @@ import java.util.Set;
 @Table(name = "task")
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private String id;
     @Column(name = "name", columnDefinition = "VARCHAR(50)")
