@@ -1,0 +1,126 @@
+html, body {
+  margin: 0; /* Убираем отступы по умолчанию */
+  height: 100%; /* Задаем высоту для html и body */
+}
+
+.main-container {
+  width: 100%; 
+  height: 100%; 
+  margin-top: 110px;
+  display: flex; /* Включаем Flexbox */
+  justify-content: center; /* Центрируем по горизонтали */
+  align-items: center; /* Центрируем по вертикали */
+}
+
+.container {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  background: #fff;
+  padding: 40px 30px;
+  margin-bottom: 100px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.title {
+  position: relative;
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+}
+
+.input-boxes {
+  margin-top: 30px;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  margin: 10px 0;
+  position: relative;
+}
+
+.input-box input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.input-box input:focus,
+.input-box input:valid {
+  border-color: #7d2ae8;
+}
+
+.input-box i {
+  position: absolute;
+  color: #7d2ae8;
+  font-size: 17px;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.text a {
+  text-decoration: none;
+}
+
+.text a:hover {
+  text-decoration: underline;
+}
+
+.button {
+  color: #fff;
+  margin-top: 40px;
+}
+
+.button input {
+  color: #fff;
+  background: #7d2ae8;
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.button input:hover {
+  background: #5b13b9;
+}
+
+.sign-up-text {
+  text-align: center;
+  margin-top: 25px;
+}
+
+@media (max-width: 730px) {
+  .container {
+    padding: 20px;
+  }
+  
+  .input-box {
+    height: 45px;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+
+  .input-box input {
+    font-size: 14px;
+  }
+}
